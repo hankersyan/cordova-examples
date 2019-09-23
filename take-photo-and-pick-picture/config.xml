@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.hankers.mediacapture01" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>MediaCapture01</name>
+<widget id="io.hankers.takeandpick01" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>TakeAndPick01</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
     </description>
@@ -11,8 +11,12 @@
     <plugin name="cordova-plugin-whitelist" spec="1" />
     <access origin="*" />
     <allow-intent href="*" />
+    <allow-navigation href="*" />
     <platform name="android">
         <allow-intent href="market:*" />
+			  <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application">
+			      <application android:usesCleartextTraffic="true" />
+			  </edit-config>
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />

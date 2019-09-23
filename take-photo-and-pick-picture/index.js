@@ -16,6 +16,8 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+const URL_PREFIX = "http://YOUR/WEB/SERVER/";
+
 var app = {
     // Application Constructor
     initialize: function() {
@@ -28,6 +30,9 @@ var app = {
     // 'pause', 'resume', etc.
     onDeviceReady: function() {
         this.receivedEvent('deviceready');
+        
+        document.getElementById('take_picture').addEventListener('click', this.takePicture.bind(this), false);
+        document.getElementById('pick_photo').addEventListener('change', this.pickPhoto.bind(this), false);
     },
 
     // Update DOM on a Received Event
@@ -40,11 +45,10 @@ var app = {
         receivedElement.setAttribute('style', 'display:block;');
 
         console.log('Received Event: ' + id);
-        
-        this.takePhoto();
     },
     
-    takePhoto: function() {
+    takePicture: function() {
+    	const self = this;
 			// capture callback
 			var captureSuccess = function(mediaFiles) {
 			    var i, path, len;
@@ -53,9 +57,7 @@ var app = {
 			    		console.log(mediaFiles[i]);
 			        path = mediaFiles[i].fullPath;
 			        // do something interesting with the file
-			        var img = document.createElement("IMG");
-			        img.src = mediaFiles[i].localURL;
-			        parentElement.appendChild(img);
+			        self.uploadFile(mediaFiles[i].localURL);
 			    }
           console.log(parentElement.innerHTML);
 			};
@@ -67,6 +69,69 @@ var app = {
 			
 			// start image capture
 			navigator.device.capture.captureImage(captureSuccess, captureError, {limit:1});
+    },
+    
+    pickPhoto: function(e) {
+        const self = this;
+
+        var fileName = e.target.files[0].name;
+    		console.log('did pickPhoto, ' + fileName);
+
+        var formData = new FormData();
+        formData.append("thefile", e.target.files[0]);
+
+        const url = URL_PREFIX + "/saveUpload.aspx";
+
+        const xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = (e) => {
+          console.log(xhr.responseText);
+          if (xhr.readyState === XMLHttpRequest.DONE) {
+				    self.appendImg(URL_PREFIX + '/temp/' + fileName);
+          }
+        }
+        xhr.open("POST", url);
+
+        xhr.send(formData);
+    },
+    
+    appendImg: function(imgUrl) {
+			// do something interesting with the file
+			var img = document.createElement("IMG");
+			img.style.width = "100px";
+			img.src = imgUrl;
+			document.getElementById('deviceready').appendChild(img);
+    },
+
+    uploadFile: function(fileURL) {
+			const self = this;
+			var win = function (r) {
+			    console.log("Code = " + r.responseCode);
+			    console.log("Response = " + r.response);
+			    console.log("Sent = " + r.bytesSent);
+			    var filename = fileURL.substring(fileURL.lastIndexOf('/') + 1);
+			    console.log(filename);
+			    self.appendImg(URL_PREFIX + '/temp/' + filename);
+			}
+			
+			var fail = function (error) {
+			    alert("An error has occurred: Code = " + error.code);
+			    console.log("upload error source " + error.source);
+			    console.log("upload error target " + error.target);
+			}
+			
+			var options = new FileUploadOptions();
+			options.fileKey = "file";
+			options.mimeType = "text/plain";
+    	options.fileName = fileURL.substr(fileURL.lastIndexOf('/') + 1);
+
+			var params = {};
+			params.value1 = "test";
+			params.value2 = "param";
+			
+			options.params = params;
+			
+			var ft = new FileTransfer();
+			ft.upload(fileURL, encodeURI(URL_PREFIX + "/saveUpload.aspx"), win, fail, options);
     }
 };
 
