@@ -1,7 +1,7 @@
 mkdir projects
 cd projects
-cordova create takeandpick01 io.hankers.takeandpick01 TakeAndPick01
-cd takeandpick01
+cordova create takepick01 io.hankers.takepick TakePick
+cd takepick01
 cordova platform add android ios browser
 cordova plugin add cordova-plugin-device
 cordova plugin add cordova-plugin-camera
