@@ -9,9 +9,9 @@ Cordova hybrid app
 
 		Run "create-take-pick-vue.sh", and see the form page.
 
-		Issue 1: In iOS 12.2-12.4 the clicking on input-file control does not work, you need double click it.
+		Issue 1: In iOS 12.2-12.4 clicking on input-file control does not work, you need double click it.
 		Issue 2: In android, webview does not support both of taking photo and picking pictures, but it does in mobile browsers.
 		Issue 3: cordova-plugin-ionic-webview is not recommended because of some potential issues.
-		So use cordova-plug-media-capture to take photo and cordova-plugin-image-picker to pick pictures include resizing.
+		So use cordova-plugin-media-capture to take photo and cordova-plugin-image-picker to pick pictures including resizing.
 
-		NOTES: you need change the URL_PREFIX to your web server for uploading files in index.js
+		NOTES: you need change the URL_PREFIX to your web server for demo uploading.
