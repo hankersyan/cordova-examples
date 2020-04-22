@@ -12,6 +12,7 @@
             <div class="item-title item-label">Name</div>
             <div class="item-input-wrap">
             	<input type="button" id="avatarImg" value="Click and Choose" />
+            	<input type="button" value="read value" onclick="alert(document.getElementById('avatar').value);" />
               <input name="avatar" id="avatar" type="file" placeholder="Avatar" style="display:none;" >
               <span class="input-clear-button"></span>
             </div>
@@ -124,7 +125,7 @@ export default {
       btn.addEventListener('click', ()=>{
       	console.log('avatarImg::click::1');
       	document.getElementById('avatar').click();
-      	document.getElementById('avatar').click();
+      	//document.getElementById('avatar').click();
       	console.log('avatarImg::click::2');
       	//self.$$('#avatar').click();
       }, false);

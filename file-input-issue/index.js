@@ -40,9 +40,11 @@ var app = {
         receivedElement.setAttribute('style', 'display:block;');
 
         console.log('Received Event: ' + id);
-        document.getElementById('file01').click();
         var btn = document.getElementById('button01');
         btn.addEventListener('click', this.clickBtn.bind(this), false);
+        setTimeout(function() {
+	        document.getElementById('file01').click();
+        }, 3000);
     },
     
     clickBtn() {

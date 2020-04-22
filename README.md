@@ -5,7 +5,12 @@ Cordova hybrid app
 
 #### Description
 
-1. take-photo-and-pick-pictures-for-file-issue is a demo about taking photo and picking pictures for input-file issues on ios and android.
+1. file-input-issue
+
+		Issue: Input-file-control of webview does not show the "Take picture" or "Photo library" menu in iOS some versions and Android all versions.
+
+
+2. take-photo-and-pick-pictures-for-file-issue is a demo about taking photo and picking pictures for input-file issues on ios and android.
 
 		Run "create-take-pick-vue.sh", and see the form page.
 
