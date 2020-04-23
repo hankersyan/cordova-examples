@@ -387,12 +387,13 @@ public class SystemWebChromeClient extends WebChromeClient {
     }
 
     private void requestPermissions() {
-        String permission = android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
         Application app = (Application) appContext.getApplicationContext();
-        int permi = app.checkCallingOrSelfPermission(permission);
-        if (permi == PackageManager.PERMISSION_DENIED) {
+        if (app.checkCallingOrSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                ((Activity) appContext).requestPermissions(new String[]{permission}, 1);
+                ((Activity) appContext).requestPermissions(new String[]{
+                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        android.Manifest.permission.CAMERA
+                }, 1);
             }
         }
     }
