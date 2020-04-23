@@ -391,7 +391,9 @@ public class SystemWebChromeClient extends WebChromeClient {
         Application app = (Application) appContext.getApplicationContext();
         int permi = app.checkCallingOrSelfPermission(permission);
         if (permi == PackageManager.PERMISSION_DENIED) {
-            ((Activity)appContext).requestPermissions(new String[] { permission }, 1);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                ((Activity) appContext).requestPermissions(new String[]{permission}, 1);
+            }
         }
     }
 
